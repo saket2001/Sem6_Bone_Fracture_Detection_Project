@@ -1,0 +1,26 @@
+<annotation>
+	<folder>training</folder>
+	<filename>36.jpg</filename>
+	<path>C:\Work\OrthoIndex_Utilities\orthoindex-utils\image-downloader\downloads\fracture\validation\36.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>644</width>
+		<height>1754</height>
+		<depth>1</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>fracture</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>237</xmin>
+			<ymin>814</ymin>
+			<xmax>364</xmax>
+			<ymax>933</ymax>
+		</bndbox>
+	</object>
+</annotation>
