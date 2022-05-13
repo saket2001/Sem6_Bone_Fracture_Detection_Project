@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+    <title>Bone Fracture Detection</title>
+
+    <style>
+        * {
+            font-family: 'Open Sans', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="min-vw-screen min-h-screen flex flex-col gap-3 bg-gray-100 dark:bg-gray-800">
+    <nav class="flex justify-between items-center px-5 py-4 bg-white dark:bg-gray-900 shadow-md ">
+        <h3 class="text-3xl font-bold text-blue-900 dark:text-gray-100">
+            Fracture Detector
+        </h3>
+        <ul class="text-xl dark:text-gray-200 text-gray-800 flex gap-4 mr-8">
+            <li class="mx-2">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            <li class="mx-2">
+                <a href="/">
+                    About Us
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <main class="flex flex-col items-center justify-center gap-4 py-5 my-7 h-100">
+        <div class="flex flex-col items-center gap-3">
+            <h2 class="text-5xl font-bold text-gray-800 dark:text-gray-100">
+                Detect Fracture Easily
+            </h2>
+            <p class="text-2xl text-gray-600 dark:text-gray-300">
+                Upload your xray image and get analysis in few seconds
+            </p>
+        </div>
+        <form action="/handle-upload" enctype="multipart/form-data" method='POST'
+            class="flex flex-col items-center my-3">
+            <div class="flex items-center">
+                <input type="file" name="file" class="text-xl px-2 dark:text-gray-300">
+                <button type="submit"
+                    class="bg-blue-800 text-gray-100 px-5 py-3 rounded-md text-2xl hover:shadow-lg hover:bg-blue-600 transition ease-in">
+                    Scan Xray
+                </button>
+            </div>
+            <br>
+            {% if message %}
+            <div class="bg-gray-500 w-full mb-3" style="height: 1px;"></div>
+            <h4 class="text-xl {% if msg_type=='error' %} text-red-800 dark:text-red-400 {% else %} text-blue-800 dark:text-red-400 {% endif %} font-medium
+                flex gap-3 items-center justify-center">
+                {% if msg_type=="error" %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                {% else %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                {% endif %}
+                {{message}}
+            </h4>
+            {% endif %}
+        </form>
+    </main>
+    <!-- <footer class="align-baseline">
+        <h5 class="text-gray-800 text-center text-lg">Project By Students of Pillai College</h5>
+    </footer> -->
+
+</body>
+
+</html>
