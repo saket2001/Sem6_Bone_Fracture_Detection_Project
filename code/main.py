@@ -71,23 +71,28 @@ def Predict(filename):
 
 @app.route('/', methods=['GET'])
 def home():
-    return render_template("index.html")
+    return render_template("index.html",status=0,message='')
 
 @app.route('/handle-upload', methods=['POST'])
 def handle_upload():
-    file=request.files['file']
-    # check if the post request has the file part
-    if 'file' not in request.files or file.filename == '':
+    try:
+        file=request.files['file']
+        # check if the post request has the file part
+        if 'file' not in request.files or file.filename == '':
             return render_template("index.html",message="Please select an xray image to upload",msg_type="error")
         
-    if request.method=="POST" and "file" in request.files:
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        if request.method=="POST" and "file" in request.files:
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         
-        # first saving image then opening it
-        result=Predict(filename) 
+            # first saving image then opening it
+            result=Predict(filename) 
         
-    return render_template("index.html",message=result,msg_type="success")
+        return render_template("index.html",message=result,msg_type="success",status=1)
+    
+    except:
+        return render_template("index.html",message="Some Internal Error Occurred !! Please Try Again",msg_type="error",status=1)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
