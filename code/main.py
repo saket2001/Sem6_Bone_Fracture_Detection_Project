@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request,redirect
+from flask import Flask, render_template, request,redirect, send_file
 from werkzeug.utils import secure_filename
 import albumentations as A
 from PIL import Image
@@ -67,11 +67,9 @@ def Predict(filename):
     return result
     
 #################
-
-
 @app.route('/', methods=['GET'])
 def home():
-    return render_template("index.html",status=0,message='')
+    return render_template("index.html",status=0,message='',output=False)
 
 @app.route('/handle-upload', methods=['POST'])
 def handle_upload():
@@ -79,7 +77,7 @@ def handle_upload():
         file=request.files['file']
         # check if the post request has the file part
         if 'file' not in request.files or file.filename == '':
-            return render_template("index.html",message="Please select an xray image to upload",msg_type="error")
+            return render_template("index.html",output="Please select an xray image to upload",msg_type="error")
         
         if request.method=="POST" and "file" in request.files:
             filename = secure_filename(file.filename)
@@ -87,8 +85,9 @@ def handle_upload():
         
             # first saving image then opening it
             result=Predict(filename) 
+            print(result)
         
-        return render_template("index.html",message=result,msg_type="success",status=1)
+            return render_template("index.html",output=result,msg_type="success")
     
     except:
         return render_template("index.html",message="Some Internal Error Occurred !! Please Try Again",msg_type="error",status=1)
